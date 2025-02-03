@@ -1,0 +1,50 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=no"
+    />
+    <title>GPS Based AR Markers</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <!-- A-Frame library -->
+    <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
+    <!-- AR.js for location-based AR (three.js part) -->
+    <script src="https://raw.githack.com/AR-js-org/AR.js/3.4.5/three.js/build/ar-threex-location-only.js"></script>
+    <!-- AR.js A-Frame components -->
+    <script src="https://raw.githack.com/AR-js-org/AR.js/3.4.5/aframe/build/aframe-ar.js"></script>
+  </head>
+  <body>
+    <a-scene
+      vr-mode-ui="enabled: false"
+      embedded
+      arjs="sourceType: webcam; videoTexture: true; debugUIEnabled: false"
+      renderer="antialias: true; alpha: true"
+    >
+      <!-- The gps-new-camera component uses device sensors to position the AR camera -->
+      <a-camera gps-new-camera="gpsMinDistance: 5"></a-camera>
+
+      <!-- Marker 1: A red box placed at a sample location.
+           Replace the latitude and longitude values with coordinates near your current position,
+           for example by adding/subtracting 0.001 degrees to simulate a nearby point. -->
+      <a-entity
+        geometry="primitive: box"
+        material="color: red"
+        scale="10 10 10"
+        gps-new-entity-place="latitude: 37.7749; longitude: -122.4194"
+      ></a-entity>
+
+      <!-- Marker 2: A blue sphere placed slightly offset from marker 1 -->
+      <a-entity
+        geometry="primitive: sphere"
+        material="color: blue"
+        scale="5 5 5"
+        gps-new-entity-place="latitude: 37.7759; longitude: -122.4184"
+      ></a-entity>
+    </a-scene>
+
+    <!-- Main JavaScript file for additional behavior -->
+    <script src="js/main.js"></script>
+  <script defer src="https://static.cloudflareinsights.com/beacon.min.js/v8c78df7c7c0f484497ecbca7046644da1771523124516" integrity="sha512-8DS7rgIrAmghBFwoOTujcf6D9rXvH8xm8JQ1Ja01h9QX8EzXldiszufYa4IFfKdLUKTTrnSFXLDkUEOTrZQ8Qg==" data-cf-beacon='{"version":"2024.11.0","token":"4c6229722a6346bc8eb5cb0e5eae5d41","server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+</body>
+</html>
