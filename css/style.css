@@ -6,6 +6,7 @@ body {
   width: 100%;
   height: 100%;
   overflow: hidden;
+  font-family: sans-serif;
 }
 
 /* Style the A-Frame scene so that it fills the entire viewport */
@@ -15,4 +16,21 @@ a-scene {
   position: absolute;
   top: 0;
   left: 0;
+}
+
+/* Overlay styles for instructions */
+#overlay {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.7);
+  color: #fff;
+  padding: 8px 16px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  z-index: 1000;
+  font-size: 14px;
 }
