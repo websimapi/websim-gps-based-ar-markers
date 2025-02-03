@@ -35,22 +35,25 @@
       <!-- The gps-new-camera component uses device sensors to position the AR camera -->
       <a-camera gps-new-camera="gpsMinDistance: 5"></a-camera>
 
-      <!-- Marker 1: A red box with pulsating animation placed at a sample location.
-           Adjust the latitude/longitude to suit your surroundings. -->
+      <!-- Marker 1: A red box with pulsating animation.
+           Initially set to dummy coordinates; updated dynamically to be very close to the user. -->
       <a-entity
+        id="marker1"
         geometry="primitive: box"
         material="color: red"
         scale="10 10 10"
-        gps-new-entity-place="latitude: 37.7749; longitude: -122.4194"
+        gps-new-entity-place="latitude: 0; longitude: 0"
         animation="property: scale; dir: alternate; dur: 1000; loop: true; to: 12 12 12"
       ></a-entity>
 
-      <!-- Marker 2: A blue sphere with a gentle pulsation placed slightly offset from marker 1 -->
+      <!-- Marker 2: A blue sphere with a gentle pulsation.
+           Initially set to dummy coordinates; updated dynamically to be very close to the user. -->
       <a-entity
+        id="marker2"
         geometry="primitive: sphere"
         material="color: blue"
         scale="5 5 5"
-        gps-new-entity-place="latitude: 37.7759; longitude: -122.4184"
+        gps-new-entity-place="latitude: 0; longitude: 0"
         animation="property: scale; dir: alternate; dur: 1200; loop: true; to: 6 6 6"
       ></a-entity>
     </a-scene>
