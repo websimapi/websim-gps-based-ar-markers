@@ -1,35 +1,54 @@
 document.addEventListener('DOMContentLoaded', () => {
   console.log('GPS based AR markers loaded.');
 
-  let markersUpdated = false; // ensure we update markers only once
+  let markersAdded = false;
 
-  // Log camera updates to help track marker positioning and update markers nearby the user.
-  const sceneEl = document.querySelector('a-scene');
-  sceneEl.addEventListener('gps-camera-update-position', (e) => {
+  const camera = document.querySelector('[gps-new-camera]');
+  camera.addEventListener('gps-camera-update-position', (e) => {
     console.log('Camera position updated:', e.detail);
 
-    // Place markers close to the user on the first update.
-    if (!markersUpdated) {
-      const userLat = e.detail.latitude;
-      const userLon = e.detail.longitude;
+    if (!markersAdded && e.detail.position.latitude && e.detail.position.longitude) {
+      const userLat = e.detail.position.latitude;
+      const userLon = e.detail.position.longitude;
       console.log('User position: ', userLat, userLon);
 
-      // Small offsets to place markers nearby (roughly 2 meters offset, 1m ~ 0.000009° so ~0.00002 for demonstration)
+      const scene = document.querySelector('a-scene');
+
+      // Small offsets to place markers nearby (roughly 2 meters offset)
       const offset = 0.00002;
-      
-      const marker1 = document.getElementById('marker1');
-      const marker2 = document.getElementById('marker2');
 
-      // Marker 1: placed slightly north-east of the user.
-      marker1.setAttribute('gps-new-entity-place', `latitude: ${userLat + offset}; longitude: ${userLon + offset}`);
-      
-      // Marker 2: placed slightly south-west of the user.
-      marker2.setAttribute('gps-new-entity-place', `latitude: ${userLat - offset}; longitude: ${userLon - offset}`);
+      // Marker 1: Red box
+      const marker1 = document.createElement('a-entity');
+      marker1.setAttribute('geometry', 'primitive: box');
+      marker1.setAttribute('material', 'color: red');
+      marker1.setAttribute('scale', '10 10 10');
+      marker1.setAttribute(
+        'gps-new-entity-place',
+        `latitude: ${userLat + offset}; longitude: ${userLon + offset}`
+      );
+      marker1.setAttribute(
+        'animation',
+        'property: scale; dir: alternate; dur: 1000; loop: true; to: 12 12 12'
+      );
 
-      markersUpdated = true;
+      // Marker 2: Blue sphere
+      const marker2 = document.createElement('a-entity');
+      marker2.setAttribute('geometry', 'primitive: sphere');
+      marker2.setAttribute('material', 'color: blue');
+      marker2.setAttribute('scale', '5 5 5');
+      marker2.setAttribute(
+        'gps-new-entity-place',
+        `latitude: ${userLat - offset}; longitude: ${userLon - offset}`
+      );
+      marker2.setAttribute(
+        'animation',
+        'property: scale; dir: alternate; dur: 1200; loop: true; to: 6 6 6'
+      );
+
+      scene.appendChild(marker1);
+      scene.appendChild(marker2);
+
+      markersAdded = true;
     }
   });
-
-  // Optionally: You can add more interactivity, for example, highlighting a marker when it comes into view.
-  // Additional JavaScript can be placed here for further enhancements.
 });

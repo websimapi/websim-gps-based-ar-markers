@@ -33,29 +33,9 @@
       renderer="antialias: true; alpha: true"
     >
       <!-- The gps-new-camera component uses device sensors to position the AR camera -->
-      <a-camera gps-new-camera="gpsMinDistance: 5"></a-camera>
+      <a-camera gps-new-camera="gpsMinDistance: 0"></a-camera>
 
-      <!-- Marker 1: A red box with pulsating animation.
-           Initially set to dummy coordinates; updated dynamically to be very close to the user. -->
-      <a-entity
-        id="marker1"
-        geometry="primitive: box"
-        material="color: red"
-        scale="10 10 10"
-        gps-new-entity-place="latitude: 0; longitude: 0"
-        animation="property: scale; dir: alternate; dur: 1000; loop: true; to: 12 12 12"
-      ></a-entity>
-
-      <!-- Marker 2: A blue sphere with a gentle pulsation.
-           Initially set to dummy coordinates; updated dynamically to be very close to the user. -->
-      <a-entity
-        id="marker2"
-        geometry="primitive: sphere"
-        material="color: blue"
-        scale="5 5 5"
-        gps-new-entity-place="latitude: 0; longitude: 0"
-        animation="property: scale; dir: alternate; dur: 1200; loop: true; to: 6 6 6"
-      ></a-entity>
+      <!-- Markers will be added dynamically via JavaScript -->
     </a-scene>
 
     <!-- Main JavaScript file for additional behavior -->
